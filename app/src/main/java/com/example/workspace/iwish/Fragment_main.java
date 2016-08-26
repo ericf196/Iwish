@@ -44,9 +44,6 @@ public class Fragment_main extends Fragment {
         adapterMain=new AdaptaptadorMain(getContext());
         reciclador.setAdapter(adapterMain);
 
-
-        setHasOptionsMenu(true);
-
         //Toolbar toolbar = (Toolbar) getActivity().findViewById(R.id.toolbar);
 
         return view;
@@ -56,7 +53,6 @@ public class Fragment_main extends Fragment {
     public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
         Log.v("MensajeM", "get called");
 
-        inflater.inflate(R.menu.menu_prueba, menu);
 
         super.onCreateOptionsMenu(menu,inflater);
 
@@ -69,4 +65,5 @@ public class Fragment_main extends Fragment {
 
         super.onPrepareOptionsMenu(menu);
     }
+
 }

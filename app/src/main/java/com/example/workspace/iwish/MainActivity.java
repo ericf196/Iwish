@@ -12,51 +12,48 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.Toast;
 
-import java.util.ArrayList;
-import java.util.List;
 
-public class MainActivity extends AppCompatActivity implements FragmentManager.OnBackStackChangedListener, MenuItem.OnMenuItemClickListener{
+public class MainActivity extends AppCompatActivity implements FragmentManager.OnBackStackChangedListener, MenuItem.OnMenuItemClickListener {
     Fragment fragmentoGenerico = null;
-
+    Fragment_detail fragmentoDetalle=null;
+    ActionBar ab;
     FragmentManager fragmentManager;
+    boolean bandera;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        setToolbar();
-
         fragmentManager = getSupportFragmentManager();  //reemplazar fragments
         fragmentoGenerico = new Fragment_main();
 
-        fragmentManager.beginTransaction().replace(R.id.contenedor_main, fragmentoGenerico).commit(); // El toolbar lo trabajamos por aqui
-
+        fragmentManager.beginTransaction().replace(R.id.contenedor_main, fragmentoGenerico, "generico").commit();
 
         fragmentManager.addOnBackStackChangedListener(this);
+        setToolbar();
 
     }
 
     private void setToolbar() {
-
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
-        final ActionBar ab = getSupportActionBar();
+        ab = getSupportActionBar();
         if (ab != null) {
-            // Poner ícono del drawer toggle
             ab.setHomeAsUpIndicator(R.drawable.ic_back);
-            ab.setDisplayHomeAsUpEnabled(true);
-
+            // Poner ícono del drawer toggle
+            ab.setDisplayHomeAsUpEnabled(false);
+            ab.setDisplayHomeAsUpEnabled(false);
         }
+
     }
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
-        List<Fragment> fragments= fragmentManager.getFragments();
-
 
         getMenuInflater().inflate(R.menu.menu_activity_main, menu);
-       // menu.findItem(R.id.action_search).setVisible(false);
         menu.findItem(R.id.action_search).setOnMenuItemClickListener(this);
+
         return true;
     }
 
@@ -64,15 +61,15 @@ public class MainActivity extends AppCompatActivity implements FragmentManager.O
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
             case android.R.id.home:
-               // onBackPressed();
-                Toast.makeText(this, "Mensaje "+fragmentManager.getBackStackEntryCount(), Toast.LENGTH_SHORT).show();
-                /*if(fragmentManager.findFragmentById(R.id.fragmentDetail))
+                onBackPressed();
+                // Toast.makeText(this, "Mensaje " + fragmentManager.getBackStackEntryCount(), Toast.LENGTH_SHORT).show();
+                // Toast.makeText(this, "Mensaje " +fragmentManager.findFragmentByTag("generico").isVisible() , Toast.LENGTH_SHORT).show();
 
-                    fragmentManager.findFragmentById(R.id.fragmentDetail).*/
                 break;
             case R.id.action_compose:
-                Toast.makeText(this, "Mensaje "+ item.getTitle().toString(), Toast.LENGTH_SHORT).show();
-
+               // Toast.makeText(this, "Mensaje " + item.getTitle().toString(), Toast.LENGTH_SHORT).show();
+                fragmentoDetalle = new Fragment_detail();
+                fragmentManager.beginTransaction().replace(R.id.contenedor_main, fragmentoDetalle, "detalle").addToBackStack(null).commit();
                 break;
 
         }
@@ -82,7 +79,10 @@ public class MainActivity extends AppCompatActivity implements FragmentManager.O
 
     @Override
     public void onBackStackChanged() {
-            Log.v("Mensaje", "Aqui estoy");
+        if (!fragmentManager.findFragmentByTag("generico").isVisible())
+            ab.setDisplayHomeAsUpEnabled(true);
+        else
+            ab.setDisplayHomeAsUpEnabled(false);
 
     }
 

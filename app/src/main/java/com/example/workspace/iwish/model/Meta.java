@@ -1,20 +1,21 @@
 package com.example.workspace.iwish.model;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 
 /**
  * Created by WorkSpace on 05/08/2016.
  */
-public class Meta {
+public class Meta implements Serializable{
     private String titulo;
-    private String descupcion;
+    private String descripcion;
     private String fecha;
     private String categoria;
     private String prioridad;
 
-    public Meta(String titulo, String descupcion, String fecha, String categoria, String prioridad) {
+    public Meta(String titulo, String descripcion, String fecha, String categoria, String prioridad) {
         this.titulo = titulo;
-        this.descupcion = descupcion;
+        this.descripcion = descripcion;
         this.fecha = fecha;
         this.categoria = categoria;
         this.prioridad = prioridad;
@@ -43,12 +44,12 @@ public class Meta {
         this.titulo = titulo;
     }
 
-    public String getDescupcion() {
-        return descupcion;
+    public String getDescripcion() {
+        return descripcion;
     }
 
-    public void setDescupcion(String descupcion) {
-        this.descupcion = descupcion;
+    public void setDescripcion(String descripcion) {
+        this.descripcion = descripcion;
     }
 
     public String getFecha() {

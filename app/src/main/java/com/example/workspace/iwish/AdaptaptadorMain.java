@@ -5,6 +5,7 @@ import android.app.Activity;
 
 import android.content.Context;
 
+import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.CardView;
 import android.support.v7.widget.RecyclerView;
@@ -45,7 +46,6 @@ public class AdaptaptadorMain extends RecyclerView.Adapter<AdaptaptadorMain.View
             titulo = (TextView) view.findViewById(R.id.txtTitulo);
             cardView = (CardView) view.findViewById(R.id.cardview);
 
-
         }
 
     }
@@ -76,17 +76,23 @@ public class AdaptaptadorMain extends RecyclerView.Adapter<AdaptaptadorMain.View
 
             @Override
             public void onClick(View view) {
-                Fragment_detail Fragment = new Fragment_detail();
 
+                Fragment_detail fragment_detail = new Fragment_detail();
+                Bundle bundle = new Bundle();
+                Meta meta = item;
+                bundle.putSerializable("meta", meta );
+
+                fragment_detail.setArguments(bundle);
+                Log.v("mensaje","lo pase");
                 FragmentManager manager = ((AppCompatActivity) c).getSupportFragmentManager();
+               /* item.getFecha();
+                item.getDescripcion();
+                item.getCategoria();
+                item.getPrioridad();
+                item.getTitulo();*/
 
-                manager.beginTransaction().replace(R.id.contenedor_main, Fragment).addToBackStack(null).commit();
+                manager.beginTransaction().replace(R.id.contenedor_main, fragment_detail, "detail").addToBackStack(null).commit();
 
-
-                if (manager.getFragments().size() >= 1) {
-
-                    Log.v("Mensaje","Mensaje "+ manager.getFragments().size());
-                }
 
             }
         });
