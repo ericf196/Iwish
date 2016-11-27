@@ -124,7 +124,7 @@
             android:layout_width="50dp"
             android:layout_height="50dp"
             android:layout_gravity="center_vertical|start"
-            android:src="@drawable/ic_action_name"
+            android:src="@drawable/ic_action_edit"
             app:backgroundTint="@color/colorPrimary"
             app:elevation="10dp"
             app:fabSize="mini"

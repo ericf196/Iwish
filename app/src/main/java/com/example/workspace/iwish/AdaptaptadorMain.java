@@ -27,7 +27,7 @@ public class AdaptaptadorMain extends RecyclerView.Adapter<AdaptaptadorMain.View
     Context c;
 
     public AdaptaptadorMain(Context c) {
-        this.c = c;
+       this.c = c;
 
     }
 
@@ -54,6 +54,7 @@ public class AdaptaptadorMain extends RecyclerView.Adapter<AdaptaptadorMain.View
     public ViewHolder onCreateViewHolder(ViewGroup viewGroup, int i) {
 
         View v = LayoutInflater.from(viewGroup.getContext()).inflate(R.layout.row_item, viewGroup, false);
+        c=viewGroup.getContext();
         return new ViewHolder(v);
     }
 
@@ -80,19 +81,13 @@ public class AdaptaptadorMain extends RecyclerView.Adapter<AdaptaptadorMain.View
                 Fragment_detail fragment_detail = new Fragment_detail();
                 Bundle bundle = new Bundle();
                 Meta meta = item;
-                bundle.putSerializable("meta", meta );
+                bundle.putSerializable("meta", meta);
 
                 fragment_detail.setArguments(bundle);
                 Log.v("mensaje","lo pase");
                 FragmentManager manager = ((AppCompatActivity) c).getSupportFragmentManager();
-               /* item.getFecha();
-                item.getDescripcion();
-                item.getCategoria();
-                item.getPrioridad();
-                item.getTitulo();*/
 
                 manager.beginTransaction().replace(R.id.contenedor_main, fragment_detail, "detail").addToBackStack(null).commit();
-
 
             }
         });

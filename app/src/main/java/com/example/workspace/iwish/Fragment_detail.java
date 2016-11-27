@@ -1,5 +1,6 @@
 package com.example.workspace.iwish;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v7.app.ActionBar;
@@ -10,12 +11,15 @@ import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageButton;
 import android.widget.TextView;
 
 import com.example.workspace.iwish.model.Meta;
 
-public class Fragment_detail extends Fragment {
+public class Fragment_detail extends Fragment implements View.OnClickListener{
 
+
+    Meta meta;
     public Fragment_detail() {
         // Required empty public constructor
     }
@@ -31,10 +35,12 @@ public class Fragment_detail extends Fragment {
         TextView prioridad=(TextView)v.findViewById(R.id.prioridad);
         TextView fecha=(TextView)v.findViewById(R.id.fecha);
         TextView categoria=(TextView)v.findViewById(R.id.categoria);
+        ImageButton fab= (ImageButton) v.findViewById(R.id.fab);
 
         Bundle bundle = this.getArguments();
-        Meta meta = (Meta) bundle.getSerializable("meta");
-        Log.v("meta",meta.getCategoria()); // ahi esta devuelve
+        meta = (Meta) bundle.getSerializable("meta");
+        // Log.v("meta",meta.getCategoria()); // ahi esta devuelve
+
 
         descripcion.setText(meta.getDescripcion());
         prioridad.setText(meta.getPrioridad());
@@ -43,11 +49,10 @@ public class Fragment_detail extends Fragment {
 
         setHasOptionsMenu(true);
 
+        fab.setOnClickListener(this);
+
         return v;
     }
-
-
-
 
 
     @Override
@@ -60,5 +65,13 @@ public class Fragment_detail extends Fragment {
     @Override
     public void onPrepareOptionsMenu(Menu menu) {
         super.onPrepareOptionsMenu(menu);
+    }
+
+    @Override
+    public void onClick(View view) {
+        Intent activityEditar= new Intent(view.getContext(), EditarMeta.class);
+
+        activityEditar.putExtra("meta", meta);
+        startActivity(activityEditar);
     }
 }

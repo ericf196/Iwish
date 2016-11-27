@@ -43,7 +43,7 @@ public class MainActivity extends AppCompatActivity implements FragmentManager.O
             ab.setHomeAsUpIndicator(R.drawable.ic_back);
             // Poner ícono del drawer toggle
             ab.setDisplayHomeAsUpEnabled(false);
-            ab.setDisplayHomeAsUpEnabled(false);
+
         }
 
     }
